@@ -1,0 +1,15 @@
+<apex:component >
+  <div id="navigation">
+    <div class="inner">
+        <div class="nav_wrapper">
+            <ul id="topnav">
+                <li><a href="{!$Page.FacebookToolkitPage}">Facebook</a></li>
+               
+                <li><a href="{!$Page.EmbedLinkedIn}">LinkedIn</a></li>
+                
+             </ul>
+          </div>
+        </div>  
+       
+      </div>
+</apex:component>

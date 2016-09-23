@@ -1,0 +1,20 @@
+<apex:page controller="AttachmentUploadController">
+    <script type="text/javascript"> 
+        function openFieldPopUp(val){
+           
+            var idVal = val.id;
+            var IdVal1=idVal+'Hidden';
+            var isCustomLookup = false;
+            baseURL = "/apex/uploadfiles";
+            window.open(baseURL, 'lookup', 'width=500,height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no');
+            return false;
+          }
+            
+    </script>
+  <apex:form >
+     <apex:outputText value="Parent Object ID: "/>
+        <apex:inputText value="{!parentId}"/><br/>
+      <apex:commandlink value="Attach"  onclick="openFieldPopUp(this); return false;" id="name1"/>
+      <apex:commandButton value="save" action="{!save}"/>
+  </apex:form>
+</apex:page>

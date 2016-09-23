@@ -1,0 +1,28 @@
+<apex:component access="global" controller="DeactivatedUserReferencesController">
+    <apex:attribute name="UserDeactivatedId" type="String" assignTo="{!userId}" description="Id of the User getting deactivated."/>
+    <div style="font-size: 10pt;font-family: arial;{!IF(jobDetails.size> 0, '','display:none')}">
+        <apex:variable value="{!1}" var="index" />
+        <apex:repeat value="{!JobDetails}" var="job">
+            <br/><br/>
+            <b>Scheduled {!job.JobType}</b><br/>
+            <ul>            
+            <li><b>Scheduled Job Name:</b> {!job.jobTitle}<br/></li>
+            <apex:outputPanel rendered="{!IF(OR(job.JobType==' Apex', job.JobType =' Batch Job'), true, false)}"> 
+            <li><b>Scheduled Job Type:</b> <apex:outputText value=" Scheduled{!job.JobType}" escape="false"/><br/></li>             
+            <li><b>Update the schedule and change the running user:</b> <a href="https://marketo.my.salesforce.com/ui/setup/apex/batch/ScheduleBatchApexPage?job_name={!job.jobTitle}&pid={!job.Id}"> 
+             Click Here</a><br/></li>
+             </apex:outputPanel> 
+             <apex:outputPanel rendered="{!IF(OR(job.JobType==' Apex', job.JobType =' Batch Job'), false, true)}">  
+             <li><b>Scheduled Job Type:</b> <apex:outputText value="{!job.JobType}" escape="false"/><br/></li>                   
+             <li><b>Update the schedule and change the running user:</b> <a href="https://marketo.my.salesforce.com/{!Job.updateUrlId}?nav=schedule&fromSchedIcon=true"> 
+             Click Here</a><br/></li> 
+             </apex:outputPanel>
+            <li><b>Delete the scheduled job:</b> If the running user scheduled a report in his or her personal folder, you cannot edit the schedule; however, if you have "Modify All Data" permission, you can delete the job from the All Scheduled Jobs page: <a href="https://marketo.my.salesforce.com/08e">Click Here</a></li>
+            </ul>
+          <apex:variable var="index" value="{!index + 1}" />
+        </apex:repeat>
+    </div>
+    <div style="font-size: 10pt;font-family: arial;{!IF(jobDetails.size> 0,'display:none','')}" >
+        <b>The User has no reference.</b>
+    </div>
+</apex:component>

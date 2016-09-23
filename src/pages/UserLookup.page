@@ -1,0 +1,61 @@
+<apex:page controller="UserLookupController" sidebar="false" tabstyle="Case">
+  <apex:includeScript value="{!URLFOR($Resource.TheNavigator, '/jquery-1.10.2.js')}"/> 
+  <style>
+       .srch_line{padding: 4px 3px;
+        font-family: 'Arial','Helvetica',sans-serif;
+        font-weight: bold;
+        font-size: 118%
+        }
+        .input_text{width: 170px !important;
+            margin-left: 6px;
+            margin-right: 6px;
+         }
+         .edit_panel{
+         }
+  </style> 
+  <apex:form id="theForm">
+    <apex:sectionHeader title="Select User"/>
+    <apex:outputPanel styleClass="edit_panel" id="edit_panel">
+            <b>Select User:</b> <apex:inputText styleClass="input_text" id="user_lookup" value="{!param}" />                           
+            <apex:commandButton action="{!searchGo}" value="Go!" /> 
+            **Enter first name or last name to search
+        </apex:outputPanel>
+        <br/><br/><br/>
+        <apex:outputPanel rendered="{!isGlobalSearch }">
+        <div class="srch_line">Recently Viewed User</div>
+        </apex:outputPanel>
+        <apex:pageBlock id="searchResults">
+               <div style="overflow-y:scroll;height:400px;">
+              <apex:pageBlockTable value="{!usersList}" var="userInLookup" id="tblResults" >
+                <apex:column width="10%">
+                  <apex:facet name="header">
+                    <apex:outputPanel >User Name</apex:outputPanel>
+                  </apex:facet>
+                   <a userId="{!userInLookup.Id}" sfdcUserName ="{!userInLookup.UserName}" userName="{!userInLookup.name}" class="user_link" href="javascript:void(null);"  >{!userInLookup.Name}</a>     
+                </apex:column>
+                <apex:column width="30%">
+                  <apex:facet name="header">
+                    <apex:outputPanel >Role</apex:outputPanel>
+                  </apex:facet>
+                   {!userInLookup.UserRole.Name}    
+                </apex:column>
+              </apex:pageBlockTable>
+              <apex:outputlabel rendered="{!IF(usersList.size == 0,true,false)}">
+                  <div><b>No Records Found</b></div>
+              </apex:outputlabel>
+              </div>
+            </apex:pageBlock>
+    </apex:form>
+    <script type="text/javascript">
+             //case_link
+            jQuery(document).ready(function(){
+                jQuery(".user_link").bind("click",function(){
+                    var userId     = jQuery(this).attr('userId');
+                    var userName = jQuery(this).attr('userName');
+                    var sfdcUserName = jQuery(this).attr('sfdcUserName');
+                    window.opener.GetSelectedValueFromLookup(userId, userName, sfdcUserName);  
+                    window.close();         
+                });
+            });           
+        </script>
+</apex:page>

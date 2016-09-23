@@ -1,0 +1,20 @@
+<apex:component >
+         <style>
+            .tabsstyle {
+                            font-family : cursive;
+                            font-size : 16px;
+                       }
+         </style>
+         <script>
+         function redirect(page){
+             alert('hi');
+             window.location.replace("https://ayub-ansari-blog-developer-edition.ap1.force.com/"+page);
+         }
+         
+         </script>
+         <apex:tabPanel selectedTab="aboutme" >
+            <apex:tab styleClass="tabsstyle" onclick="redirect('Ayub_Blog_home');" label="About Me" name="aboutme" id="tabOne" title="About Me"></apex:tab>
+            <apex:tab styleClass="tabsstyle" label="Salesforce Training" name="SalesforceTraining" id="SalesforceTraining" title="SalesforceTraining"></apex:tab>
+            <apex:tab styleClass="tabsstyle" label="Salesforce Articles" name="SalesforceArticles" id="SalesforceArticles" title="SalesforceArticle"></apex:tab>
+         </apex:tabPanel>
+</apex:component>

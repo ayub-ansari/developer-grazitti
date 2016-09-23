@@ -1,0 +1,20 @@
+<apex:component >
+     <div class="uc_globalcontainer">
+        <c:TheExpediter_Tabs />
+        <div class="uc_global_center">
+            <div class="uc_page_container">
+                <!-- Add Page Content here -->
+                <div class="uc_page_wrapper">
+                   <!-- <link rel="Stylesheet" type="text/css" href="{!URLFOR($Resource.Community_Template_Water, 'CSS/communityTemplateWater_Styles.css')}"/> 
+                    <apex:stylesheet value="{!URLFOR($Resource.Community_Template_Water, 'CSS/communityTemplateWater_Styles.css')}"/>-->
+                    <apex:insert name="body"/>
+                </div>
+            </div>            
+        </div>
+       <!-- <div class="uc_global_right">
+            <c:MarketoTemplateRightSideBarWater section="{!section}" />
+        </div>-->
+        <div style="clear:both;"></div>
+    </div>
+
+</apex:component>

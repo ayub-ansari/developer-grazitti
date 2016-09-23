@@ -1,0 +1,76 @@
+<apex:page showHeader="true" standardStylesheets="true" sidebar="true" controller="eventsController">
+
+    <table border="0" width="600">
+        <tr>
+           <td> <h1 style="font-family:Georgia;font-size:200%">Events</h1></td>
+           <td align="left">        
+                <apex:form >
+                    <apex:commandButton action="{!Setup}" value="Initialize Sample Data"/>
+                    <apex:commandButton action="{!showPopup}" value="Remove Sample Data" rerender="popup"/>
+                      <apex:outputPanel id="popup">
+                        <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUp}"/>
+                        <apex:outputPanel styleClass="customPopup" layout="block" rendered="{!displayPopUp}">
+                          <b>WARNING:</b> The following records will be deleted: accounts named <b>Test-Customer</b> and 
+                          <b>Test-Vendor</b>, and associated contacts, eventd named <b>Test Event</b>, and associated tracks, 
+                          sessions and speakers, and venues named <b>Test Convention Center</b>.<br/><br/> 
+                          Click OK to continue or Cancel to abort.<br/><br/>
+                          <apex:commandButton value="OK" action="{!closePopupOK}" rerender="popup"/>
+                          <apex:commandButton value="Cancel" action="{!closePopupCancel}" rerender="popup"/>
+                        </apex:outputPanel>
+                      </apex:outputPanel>
+                </apex:form>
+            </td>
+        </tr>
+    </table>
+    
+    <table border="0" width="600">
+
+        <tr>
+            <td>
+                <p>Events for Salesforce helps you manage customer conferences, partner meetings or any other type of multi-session event. Events can be as simple as a web presentation, or as complex as a multi-day conference with multiple speakers and break outs.</p>
+                <p>Using Events for Salesforce is simple, Create your Event, add one or more Tracks, then add one or more Sessions to each Track. You can also track event venus, such as a hotel or confernece center, and assign individual Speakers to each Session.</p>
+                <p>To help you get started, included is an automated "initialize" process, which creates a sample event in your system.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <a href="https://twitter.com/texasrob" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @texasrob</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                <p>Follow me on Twitter to send question or comments, as well as enhancement requests. I will implement your ideas as time allows.</p>
+                <p>Please take the time to rate this app on the AppExchange for the benefit of the community. <a href="http://appexchange.salesforce.com/listingDetail?listingId=a0N30000005vK3CEAU">Rate Events on the AppExchange</a></p>
+            </td>
+        </tr>
+    </table>
+
+    <style type="text/css">
+       .customPopup{
+            background-color: white;
+            border-style: solid;
+            border-width: 2px;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            z-index: 9999;
+            /* These are the 3 css properties you will need to tweak so the pop 
+            up displays in the center of the screen. First set the width. Then set 
+            margin-left to negative half of what the width is. You can also add 
+            the height property for a fixed size pop up.*/
+            width: 500px;
+            margin-left: -250px;
+            top:50px;
+         }
+         
+         .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+    </style>   
+</apex:page>

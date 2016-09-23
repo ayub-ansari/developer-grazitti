@@ -1,0 +1,39 @@
+<apex:page >
+ <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+ <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>‌-->
+ <script> 
+     Sfdc.onReady(function() {  
+         console.log('hello');
+         console.log(jQuery('.linksModule').html());
+     
+     });
+    
+     /*
+ 
+      Sfdc.onReady(function() {  
+           setTimeout(function(){
+            jQuery('body').find('.linksModule').hide(); 
+            },5000);      
+         
+         //ClickChart();
+     });  
+     
+     function ClickChart() {
+        setTimeout(function(){
+            var rem_element = jQuery('body').find('.walkme-out-wrapper').html();
+            
+            jQuery('body').find('.linksModule').hide();
+            console.log(rem_element);
+            if(typeof rem_element != 'undefined') {
+                jQuery('body').find('.walkme-out-wrapper').remove();
+                var elemt_not = jQuery('body').find('.walkme-out-wrapper').remove()
+                if(elemt_not != 'undefined'){
+                    ClickChart();
+                }
+            }else{
+               // ClickChart();
+            } 
+        }, 6000);
+      }*/     
+    </script> 
+</apex:page>

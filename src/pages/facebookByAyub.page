@@ -1,0 +1,19 @@
+<apex:page controller="FacebookControllerByAyub">
+
+<apex:form >
+   <apex:outputPanel rendered="{!isscreenNameEmpty}">
+       <b>Enter Your Screen Name :</b> <apex:inputText value="{!fbscreenName }"/>
+       <apex:commandButton action="{!viewFBTimeLine}" value="View"/>
+   </apex:outputPanel>
+   <apex:outputPanel rendered="{!!isscreenNameEmpty}">
+      <apex:image url="https://graph.facebook.com/{!fbProfileInfo.userName}/picture?type=large"/><br/>
+      <apex:outputLabel style="font-wieght:bold" value="Name : "></apex:outputLabel><apex:outputText value="{!fbProfileInfo.screenName}"/><br/>
+      <apex:outputLabel style="font-wieght:bold" value="Username : "></apex:outputLabel><apex:outputText value="{!fbProfileInfo.userName}"/><br/>
+      <apex:outputLabel style="font-wieght:bold" value="Gender : "></apex:outputLabel><apex:outputText value="{!fbProfileInfo.gender}"/><br/>
+      <apex:outputLabel style="font-wieght:bold" value="Locale : "></apex:outputLabel><apex:outputText value="{!fbProfileInfo.locale}"/><br/>
+      <apex:outputLabel style="font-wieght:bold" value="Follow on the Facebook : "></apex:outputLabel><a href="{!fbProfileInfo.link}">Follow Me</a><br/>
+    </apex:outputPanel>    
+</apex:form>
+
+    
+</apex:page>

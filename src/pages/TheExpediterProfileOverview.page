@@ -1,0 +1,47 @@
+<apex:page sidebar="false">
+   <apex:composition template="TheExpediterMainTemplate">
+    <apex:define name="body"> 
+      <style>
+        #tabsmenu li{
+        list-style: none;        
+        position: relative;
+        top: 0;
+        margin: 1px .2em 0 0;
+        border-bottom-width: 0;
+        padding: 0;
+        white-space: nowrap;
+        border: 1px solid #E2F1F6;
+        background: #1797c0 url('/img/alohaSkin/sidebar_sprite.png') -209px -2px no-repeat;
+        font-weight: bold;
+        color: #fff;
+        line-height: 2.2;
+        border-bottom-right-radius: 4px;
+        border-top-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px;
+        }
+        #tabsmenu li a{
+        padding: .5em 1em;
+        text-decoration: none;
+        color: #fff;
+
+        }
+        #tabsmenu ul{
+        margin: 0;
+        padding: .2em .2em 0;       
+        font-weight: bold;
+        content: "";
+        display: table;
+        background: #fff;
+        }
+      </style> 
+      <div>
+          
+            <div class="sidebarModuleHeader brandPrimaryBgr"><a href="#tabs-1">Profile Analytics</a></div>
+            <div class="sidebarModuleHeader brandPrimaryBgr"><a href="#tabs-2">Try Yourself</a></div>
+            <div class="sidebarModuleHeader brandPrimaryBgr"><a href="#tabs-3">Permission Comparison</a></div>
+          
+          
+     </div>
+  </apex:define>
+ </apex:composition></apex:page>

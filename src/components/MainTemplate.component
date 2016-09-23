@@ -1,0 +1,98 @@
+<apex:component >
+     <apex:stylesheet value="{!URLFOR($Resource.UserConsoleCSS, '/css/community_global.min.css')}"/>
+     <style>
+         .uc_globalcontainer{}
+         .uc_global_header{
+                float: left;/*height: 70px;*/
+                margin-top: -15px;
+                padding: -2px;
+                margin-left: 14px;
+         }
+         .uc_header1{
+            width: 1281px;
+            margin: 0 auto;
+            height: 50px;
+            background-color:#1797c0;
+            //background-image: url({!URLFOR($Resource.UserConsoleCSS, '/images/global/global_top_bar.png')});
+            background-repeat: repeat-x;
+            
+         }
+         uc_top_navigation {
+            float: left;
+            height: 84px;
+            margin-left: 25px;
+            margin-right: 25px;
+            margin-top: 25px;
+            width: 470px;
+        }
+        .uc_top_navigation ul{float:left;margin:14px 0 0 35px;padding:0}
+        
+         .uc_top_navigation li span {  color: white;
+                                    text-decoration: none;
+                                    font-size: 14px;
+                                    padding: 15px 1px 0 1px;
+                                    text-transform: uppercase;
+                                    font-family: futurabd,arial;
+                                  }
+                                  
+          .uc_top_navigation ul li {
+            float: left;
+            list-style: none outside none;
+            margin: 0;
+            margin-left: 20px;
+            margin-right: 40px;
+            padding-top: 5px;
+            background: 0;
+          }
+          .uc_top_navigation li a{color:white;text-decoration:none;font-size:14px;padding:15px 1px 0 1px;text-transform:uppercase;font-family:futurabd,arial}
+          .uc_top_navigation li a:hover{border-bottom:3px solid #7eb47e}
+          .uc_top_navigation li a.activeSection{border-bottom:3px solid #7eb47e}
+         
+         .uc_global_center{         
+             float:left;width:1256px;margin-left: 21px;left:0;position:relative;z-index:1
+         }
+         .global_left{float:left;width:215px;position:relative;left:10px;overflow:hidden}
+         .uc_page_container{position:relative;padding:0;/*width:764px;*/margin:0 auto;border:0;top:0;display:block;float:left;background:0}
+         .uc_global_right{width:215px;float:left;overflow:hidden;position:relative;right:10px}
+         .uc_page_wrapper{
+             min-height:1255px;background:#fff;-webkit-box-shadow:#7eb47e 0 13px 18px;-moz-box-shadow:#7eb47e 0 13px 18px;box-shadow:#7eb47e 0 13px 18px;background:#fff;margin-left:11px;float:left;/*width:764px;*/
+         }
+         
+     </style>
+     <apex:variable var="section" value="{!$CurrentPage.parameters.tabId}"/>
+     <div class="uc_globalcontainer">
+        <div class="uc_global_header" >
+            <div class="uc_header1">
+                <div class="uc_top_navigation">
+                    <ul>
+                        <li>
+                            <a class="{!IF($CurrentPage.parameters.tabId=='home','activeSection','')}" href="{!$Page.UserConsoleHomePage}?tabId=home"><span>Home</span></a>
+                        </li>
+                        <li>
+                            <a class="{!IF($CurrentPage.parameters.tabId=='profile','activeSection','')}"  href="{!$Page.UserConsole}?tabId=profile"><span>Profile Overview</span></a>
+                        </li>
+                        <li>
+                            <a class="{!IF($CurrentPage.parameters.tabId=='deactivate','activeSection','')}"  href="#"><span>Deactivate The User</span></a>
+                        </li>                       
+                                               
+                    </ul>
+                </div>
+            </div>
+        </div>
+       <div class="uc_global_center">
+            <div class="uc_page_container">
+                <!-- Add Page Content here -->
+                <div class="uc_page_wrapper">
+                   <!-- <link rel="Stylesheet" type="text/css" href="{!URLFOR($Resource.Community_Template_Water, 'CSS/communityTemplateWater_Styles.css')}"/> 
+                    <apex:stylesheet value="{!URLFOR($Resource.Community_Template_Water, 'CSS/communityTemplateWater_Styles.css')}"/>-->
+                    <apex:insert name="body"/>
+                </div>
+            </div>            
+        </div>
+        <div class="uc_global_right">
+            <!--<c:MarketoTemplateRightSideBarWater section="{!section}" />-->
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+
+</apex:component>

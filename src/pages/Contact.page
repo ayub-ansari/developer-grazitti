@@ -1,0 +1,7 @@
+<apex:page standardController="Contact">
+<apex:form >
+    <apex:inputField value="{!Contact.Account.Type}" />
+    <apex:inputField value="{!contact.Account.CustomerPriority__c}" />
+</apex:form>
+ 
+</apex:page>

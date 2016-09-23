@@ -1,0 +1,6 @@
+<apex:page standardController="account">
+<apex:form >
+<apex:outputText rendered="{account.type =='yes'}" value="I like primary interest specifically secondary interest"></apex:outputText>
+</apex:form>
+  
+</apex:page>

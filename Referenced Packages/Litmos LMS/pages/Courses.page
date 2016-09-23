@@ -1,0 +1,11 @@
+<apex:page standardController="Contact" extensions="Litmos.contactLitmosRecord">
+    <apex:pageBlock title="Courses for {!Contact.Name} - {!counter}" rendered="{!counter > 0}">
+        <apex:pageBlockTable value="{!UserRecord}" var="o">
+            <apex:column value="{!o.Litmos__Course__r.Litmos__Course_Name__c}"/>
+            <apex:column value="{!o.Litmos__Completed__c}"/>
+            <apex:column value="{!o.Litmos__Percentage_Complete__c}"/>
+            <apex:column value="{!o.Litmos__Completed_Date__c}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    <apex:pageBlock title="There are no courses assigned to {!Contact.Name}." rendered="{!counter = 0}"/>
+</apex:page>

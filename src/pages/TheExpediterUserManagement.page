@@ -1,0 +1,113 @@
+<apex:page controller="TheExpediterUserManagementController" tabStyle="Admin_Expediter__tab" sidebar="false">
+   <apex:composition template="TheExpediterMainTemplate">
+    <apex:define name="body">  
+      <apex:form id="the_form">
+        <apex:stylesheet value="{!URLFOR($Resource.TheNavigator, 'style.css')}"/>
+        <div class="page">
+        
+           <div class="page_div">
+            
+           <apex:pageBlock >
+                <span class="userpre_text"> You are viewing as:</span> <apex:inputText styleClass="input_text" id="user_lookup" value="{!selectedUser}" />                         
+                <apex:image id="lookup_icon" url="/s.gif" onclick="openUserLookup(this); return false;" styleClass="lookupIcon" /> 
+                <apex:inputhidden id="lookup_icon_Hidden"/>
+           </apex:pageBlock>
+           <apex:pageBlock >
+                <span class="userpre_text">{!selectedUser},</span> <a target="_blank" href="/{!selectedUserId}?noredirect=1" Class="btn" style="margin-left: 50px;">Deactivate</a><br/>
+                <span class="userpre_text">Role: </span> <apex:outputText >{!selectedUserRole}</apex:outputText><br/>
+                <span class="userpre_text">Profile: </span> <apex:outputText >{!selectedUserProfile}</apex:outputText>
+           </apex:pageBlock>
+            
+            <div class="main_div">
+            <apex:pageBlock title="User References" > 
+               <apex:repeat var="reference" value="{!sheduledJobs}">
+                         <apex:pageBlock title="{!reference.key}" >
+                             <apex:outputPanel rendered="{!IF(reference.value.size>0, true, false)}">
+                               <apex:pageBlockTable value="{!reference.value}" var="reeferenceUnderProcessing">
+                                    <apex:column headerValue="{!reference.column_one}">
+                                      <a href="/{!if(reference.key!=' Report Run',reeferenceUnderProcessing.id,reeferenceUnderProcessing.jobTitle)}" target="_blank">{!reeferenceUnderProcessing.jobTitle}</a>
+                                    </apex:column>
+                                    <apex:column headerValue="{!reference.column_two}" value="{!reeferenceUnderProcessing.id }"/>
+                                    <apex:column headerValue="Deactivation URL">
+                                      <a href="{!reeferenceUnderProcessing.updateUrlId}" target="_blank">Click Here</a>&nbsp;&nbsp;
+                                      <img style="{!IF(reference.key=' Email Alert', 'display:none;', '')}" src="/s.gif"  alt="" class="helpIcon" title="Setup->Scheduled Job->Create a view with name of Scheduled Job Name/Id->Delete the Job"/>
+                                    </apex:column>                                                                       
+                                </apex:pageBlockTable>
+                              </apex:outputPanel>
+                              <apex:outputPanel rendered="{!IF(reference.value.size>0, false, true)}">
+                                <apex:outputPanel rendered="{!AND(showCalloutException, reference.key==' Email Alert')}">
+                                  <b>Unauthorized endpoint:</b>&nbsp;&nbsp;
+                                  <span style="color:red;">Please check Setup->Security->Remote site setting and add this endpoint- {!baseURL}</span>
+                               </apex:outputPanel>
+                               <apex:outputPanel rendered="{!NOT(AND(showCalloutException, reference.key==' Email Alert'))}">
+                                    No Result Found
+                               </apex:outputPanel>
+                            </apex:outputPanel>
+                         </apex:pageBlock>
+                  </apex:repeat>
+              </apex:pageBlock>
+           </div>
+            
+          </div>
+          <div class="rest_page">
+              <div class="chart_rest_page">
+              <apex:chart height="200" width="250" data="{!data}"> 
+                <apex:axis type="Numeric"  steps="1" minimum="0" position="bottom" fields="data" title="Count"/>    
+                <apex:axis type="Category"  position="left" fields="name" title="Component"> 
+                </apex:axis>     
+                <apex:barSeries orientation="horizontal" axis="bottom" xField="data" yField="name"/> 
+              </apex:chart> 
+              </div>
+          </div>
+           <div class="rest_page">
+             <span> Data Storage Usage By <b><span style="color:#1797c0">{!RPAD(selectedUser,18,'...')}</span></b></span><br/><br/>
+             <a target="_blank" href="/setup/user/userstorageusage.jsp?id={!selectedUserId}&setupid=PersonalInformation&isdtp=mn" Class="btn" style="" >View All Objects</a>
+             <br/><br/>
+             <apex:outputPanel rendered="{!objectCountData.size>0}">
+                <apex:chart height="200" width="250" data="{!objectCountData}"> 
+                <apex:axis type="Numeric"  steps="1" minimum="0" position="bottom" fields="data" title="Record Count"/>    
+                <apex:axis type="Category"  position="left" fields="name" title="Object"> 
+                </apex:axis>     
+                <apex:barSeries orientation="horizontal" axis="bottom" xField="data" yField="name"/> 
+              </apex:chart>
+             </apex:outputPanel>
+             <br/>             
+          </div>
+          
+          <div class="rest_page">
+              <b>Email This Information</b><br/><br/>
+              <b>Email:&nbsp;</b> <apex:inputText id="input_email" styleClass="input_text" value="{!recipientEmail }"/>
+              <br/><br/>
+              <apex:inputHidden id="hidden_emailtemplate" value="{!emailtextInHtml}"/>
+             <apex:commandButton value="Send Email" disabled="false" onclick="return validateEmail()" action="{!sendEmail}"></apex:commandButton>
+          </div>          
+        </div>
+        <apex:actionStatus id="statusSaveTrip" stopText="">
+          <apex:facet name="start">
+            <div>
+            <div class="popupBackground" />
+               <div class="PopupPanel">
+                 <table border="0" width="100%" height="100%">
+                    <tr>
+                        <td align="center"><b>Please Wait</b></td>
+                    </tr>
+                    <tr>
+                        <td align="center"><img src="{!URLFOR($Resource.TheNavigator,'ProgressBar.gif')}"/></td>
+                    </tr>
+                 </table>
+              </div>
+            </div>
+          </apex:facet>
+       </apex:actionStatus>
+
+        <apex:actionFunction name="searchGo" action="{!searchGo}" rerender="the_form" status="statusSaveTrip">
+            <apex:param id="userName" name="userName" assignTo="{!selectedUser}" value="" />
+            <apex:param id="userId" name="userId" assignTo="{!selectedUserId}" value="" />
+            <apex:param id="sfdcUserName" name="sfdcUserName" assignTo="{!selectedsfdcUserName}" value="" />          
+        </apex:actionFunction>   
+      
+        <apex:includeScript value="{!URLFOR($Resource.TheNavigator, '/javascriptutil.js')}"/>
+        
+      </apex:form>
+  </apex:define>
+ </apex:composition></apex:page>

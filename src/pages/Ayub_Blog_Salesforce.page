@@ -1,0 +1,14 @@
+<apex:page showHeader="false" sidebar="false">
+    <apex:composition template="Ayub_Blog_Template">
+        <apex:define name="body">
+            <apex:form styleClass="tabsstyle">
+              <apex:pageBlock >
+                 <c:NavigationComponent ></c:NavigationComponent>
+                 <br/><br/><b>All Article :</b><br/><br/>
+                 <apex:outputLink value="{!$Page.Ayub_Blog_Salesforce}" styleClass="linkStyle"> How can we bypass security token in Apex Dataloader, Eclipse IDE or any external tool?</apex:outputLink> <br/> <br/>
+                 <apex:outputLink value="{!$Page.Ayub_Blog_Salesforce}" styleClass="linkStyle"> How can we create a csv file from Visualforce Page?</apex:outputLink>  
+              </apex:pageBlock>
+            </apex:form>
+        </apex:define>
+    </apex:composition>     
+</apex:page>

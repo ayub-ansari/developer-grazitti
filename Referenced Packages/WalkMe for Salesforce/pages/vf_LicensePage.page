@@ -1,0 +1,139 @@
+<apex:page standardController="WM4SF3__WalkMeLicense__c" extensions="WM4SF3.vf_LicenseController" sidebar="false">
+
+<link id="custom-css" type="text/css" href="" rel="stylesheet"/>
+<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="https://walkme.com/wp-content/themes/walkme-v2/js/jquery.bpopup-0.7.0.min.js"/>
+<script id="custom-js" type="text/javascript" src=""/>
+<script>
+    
+    function loadFiles(env){
+    
+        loadFile('custom-js', 'vf_LicensePage.js', env, 'src');
+        loadFile('custom-css', 'vf_LicensePage.css', env, 'href');            
+    }
+    
+    function loadFile(id, fileName, env, attrType){
+    
+        var elem = document.getElementById(id);
+        var path;
+        
+        if (env == 'local'){
+        
+            path = 'https://localhost/Plugins/salesforce/WM4SF_v2/pages/';
+        }
+        else if (env == 'qa'){
+                
+            path = 'https://d3fqyenyxfs83e.cloudfront.net/wm4sf/v2/';
+        }
+        
+        else{
+        
+            path = 'https://d3b3ehuo35wzeh.cloudfront.net/wm4sf/v2/';
+        }
+        
+        fileName = path + fileName;
+                
+        if (attrType=='src'){
+            
+            elem.src = fileName;
+        }
+        else if (attrType=='href'){
+        
+            elem.href = fileName;
+        }
+    }
+       
+    function loadIframe(env){
+                      
+        var iframe = document.getElementById('the-popup-iframe');
+        if (window.removeEventListener)
+        {
+            iframe.removeEventListener("load", loadIframeFunc, false);
+        } 
+        else if (iframe.detachEvent)
+        {
+            iframe.detachEvent("onload", loadIframeFunc);
+        }
+                           
+        loadFile('the-popup-iframe', 'getTokenPopup.html', env, 'src');
+    }
+                 
+    var env = "{!WalkMeLicense.mode__c}";
+    if ("{!WalkMeLicense.QA_Mode__c}" == 'true'){
+        
+        env = 'qa';
+    }
+
+    loadFiles(env);
+    
+    var loadIframeFunc = function(){ loadIframe(env);};
+</script>
+
+
+<apex:form >
+
+    <apex:pageMessages />
+    <apex:pageMessage severity="error" strength="2" summary="Package: Validation Error: Value is required." rendered="{!(UserPackageChoice==null)}"/>
+
+    <br/><b><apex:outputText value="WalkMe For Salesforce" style="font-size:18px"/></b><br/><br/>
+
+    <apex:outputText value="WalkMe for Salesforce  adds interactive Walk-Thrus for common business processes in Salesforce. In addition, it allows you to customize the " style="font-size:14px; line-height:150%"/> <br />
+    <apex:outputText value=" pre-made Walk-Thrus or create additional ones. These Walk-Thrus intuitively guide your team, step-by-step, as they work on Salesforce. " style="font-size:14px; line-height:150%"/><br />
+ 
+    <br/>
+    <hr/>
+    <div style="font-size:14px; margin-top: 10px;"> Choose account: </div>
+    <div>
+          
+ <div class="SnippetSelection">
+                <apex:selectRadio id="Package" value="{!UserPackageChoice}" layout="pageDirection" >
+                    <apex:selectoptions value="{!PackageChoices}"></apex:selectoptions>
+                </apex:selectRadio>
+                </div>
+                <div class="UserAccount" style="margin:3px 3px 5px 25px;display:none;">
+                    <span style="margin-right:10px;"><apex:outputLabel >Enter your WalkMe SnippetId:</apex:outputLabel></span>
+                    <span style="margin-right:10px;" class="spanTextbox"><apex:inputField value="{!WalkMeLicense.WM4SF3__LicenseID__c}" required="false"/></span>
+                    <b><span style="margin-left:20px;"><a href="javascript:void(0)" onclick="showPopup()">Get your WalkMe SnippetId</a></span></b>
+                </div>
+                </div>
+                <div>
+                 <apex:commandButton image="{!URLFOR($Resource.WM4SF3__Save_button)}"  action="{!SaveMethod}" style="text-align:center; border-color:white; background:transparent;"  />
+                
+           
+                <span style="margin:-15px 0px 10px 0px">
+                 <apex:outputText value="By clicking the button you agree to WalkMe" style="font-size:10px;"/>
+                    <a href="http://www.walkme.com/terms-and-conditions/" style="font-size:10px; margin-bottom:100px" target="_blank">terms of service</a>        
+                </span>
+                </div>
+                <hr/>
+                <div style="margin:14px 0px 0px 0px">
+                    <a href="http://www.walkme.com/download/" target="_blank" ><image src="{!URLFOR($Resource.download_icon)}"></image></a>
+                    <a href="http://www.walkme.com/download/" target="_blank" ><apex:outputText value=" Download WalkMe Editor   " style="font-size:11px; color:#1797c0"/></a> &nbsp;
+    
+                    <a href="http://cdn.walkme.com/verticals/salesforce/walkme_for_salesforce_v2_installation_instructions.pdf" target="_blank" ><image src="{!URLFOR($Resource.pdf_icon)}"></image></a>
+                    <a href="http://cdn.walkme.com/verticals/salesforce/walkme_for_salesforce_v2_installation_instructions.pdf" target="_blank" ><apex:outputText value=" Download Instructions PDF" style="font-size:11px; color:#1797c0"/></a>
+                </div>
+
+</apex:form>
+
+<div id="thePopup" class="PopUp" style="height: 400px; padding: 0; display:none;">
+  <span class="close close4" style="position: absolute; right: 0px;"></span>
+  <iframe id="the-popup-iframe" style="display: inline; border: none; width: 100%; height: 100%;" frameBorder="0" allowTransparency="true" src=""></iframe>
+ </div>
+
+<script>
+
+    var iframe = document.getElementById('the-popup-iframe');
+    if (window.addEventListener)
+    {
+        iframe.addEventListener("load", loadIframeFunc, false);
+    } 
+    else if (iframe.attachEvent)
+    {
+        iframe.attachEvent("onload", loadIframeFunc, false);
+    }
+    iframe.src = "";
+       
+</script>
+  
+</apex:page>

@@ -1,0 +1,15 @@
+<apex:page controller="TwitterControllerByAyub">
+<apex:form >
+   <apex:outputPanel rendered="{!isscreenNameEmpty}">
+       <b>Enter Your Screen Name :</b> <apex:inputText value="{!screenName}"/>
+       <apex:commandButton action="{!viewTwitterTimeLine}" value="View"/>
+   </apex:outputPanel>
+   <apex:outputPanel rendered="{!!isscreenNameEmpty}">
+       <a class="twitter-timeline" data-screen-name="{!screenName}" data-dnt="true" href="https://twitter.com/{!screenName}" data-widget-id="384920626168745984">Tweets by @{!screenName} <br> @{!screenName}'s tweets are protected.</br></a>
+       
+       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+       
+       
+   </apex:outputPanel>    
+</apex:form>
+</apex:page>

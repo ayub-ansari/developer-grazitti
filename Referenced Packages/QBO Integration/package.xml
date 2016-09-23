@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QBO Integration</fullName>
+    <apiAccessLevel>Unrestricted</apiAccessLevel>
+    <description>Invoices &amp; Payments Integration for QBO
+Powered by OneSaas - Cloud Integrations Made Easy</description>
+    <namespacePrefix>OneSaas</namespacePrefix>
+    <types>
+        <members>CreateInvoice</members>
+        <members>TestCreate</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>CreateInvoice</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>SetPaymentStatus</members>
+        <members>SetQuantityNotInvoiced</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>Invoice_Line_Item__c.Invoice__c</members>
+        <members>Invoice_Line_Item__c.Item_Price__c</members>
+        <members>Invoice_Line_Item__c.Pricebook_Entry_Id__c</members>
+        <members>Invoice_Line_Item__c.Product_Code__c</members>
+        <members>Invoice_Line_Item__c.Product__c</members>
+        <members>Invoice_Line_Item__c.Quantity__c</members>
+        <members>Invoice_Line_Item__c.Sale_Price__c</members>
+        <members>Invoice_Payment__c.Amount__c</members>
+        <members>Invoice_Payment__c.Date__c</members>
+        <members>Invoice_Payment__c.Invoice__c</members>
+        <members>Invoice_Payment__c.Payment_Method__c</members>
+        <members>Invoice_Payment__c.Reference_Number__c</members>
+        <members>Invoice__c.Account__c</members>
+        <members>Invoice__c.Amount_Owed__c</members>
+        <members>Invoice__c.Amount_Paid__c</members>
+        <members>Invoice__c.Date__c</members>
+        <members>Invoice__c.Description__c</members>
+        <members>Invoice__c.Due_Date__c</members>
+        <members>Invoice__c.Has_Line_Items__c</members>
+        <members>Invoice__c.Invoice_Amount__c</members>
+        <members>Invoice__c.Invoice_Number_Text__c</members>
+        <members>Invoice__c.Invoice_Number__c</members>
+        <members>Invoice__c.Opportunity__c</members>
+        <members>Invoice__c.Payment_Status_Text__c</members>
+        <members>Invoice__c.Payment_Status__c</members>
+        <members>Invoice__c.Sync_Status_Text__c</members>
+        <members>Invoice__c.Sync_Status__c</members>
+        <members>Opportunity.Amount_Invoiced__c</members>
+        <members>Opportunity.Amount_Not_Invoiced__c</members>
+        <members>Opportunity.Amount_Paid__c</members>
+        <members>OpportunityLineItem.Included__c</members>
+        <members>OpportunityLineItem.Quantity_Invoiced__c</members>
+        <members>OpportunityLineItem.Quantity_Not_Invoiced__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Invoice_Line_Item__c</members>
+        <members>Invoice_Payment__c</members>
+        <members>Invoice__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Invoice_Line_Item__c-Invoice Line Item Layout</members>
+        <members>Invoice_Payment__c-Invoice Payment Layout</members>
+        <members>Invoice__c-Invoice Layout</members>
+        <members>Opportunity-Opportunity-Invoice Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Invoice__c.All</members>
+        <name>ListView</name>
+    </types>
+    <types>
+        <members>Opportunity.Create_Invoice</members>
+        <name>WebLink</name>
+    </types>
+    <version>31.0</version>
+</Package>

@@ -1,0 +1,7 @@
+<apex:page sidebar="false">
+    <apex:composition template="UserConsoleTemplate">
+        <apex:define name="body">
+        Welcome!! This is home page..under construction...
+        </apex:define>
+   </apex:composition>  
+</apex:page>

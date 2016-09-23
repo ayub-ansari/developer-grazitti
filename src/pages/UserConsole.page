@@ -1,0 +1,180 @@
+<apex:page sidebar="false" controller="UserConsole"  tabStyle="User_Console__tab">
+   <apex:composition template="UserConsoleTemplate">
+        <apex:define name="body">
+  <style>
+      .main_div{}
+      .pb_parent_div{ 
+        float: left;
+        width: 410px;
+        padding: 10px;
+      }
+      
+  </style>
+  <apex:form >
+    <div class="main_div">
+      <div class="main_special_div">
+         Your most welcome <br/>
+         You are viewing as- {!selectedUser.Id}
+         <apex:selectList size="1" value="{!selectedUser.name}">
+         <apex:selectOptions value="{!users}">
+         </apex:selectOptions>
+         </apex:selectList>
+      </div>
+    </div>
+    <div class="main_div">
+       <div class="pb_parent_div">
+         <apex:pageBlock >
+           <apex:pageBlockSection title="Sales Board">
+             <div>
+                 <div>
+                   <analytics:reportChart size="small" reportId="00O90000006FJ8d"></analytics:reportChart>
+                 </div>
+                 <div>
+                   <analytics:reportChart size="small" reportId="00O90000006FePO"></analytics:reportChart>
+                 </div>
+             </div>
+           </apex:pageBlockSection>
+         </apex:pageBlock>
+       </div>
+       <div class="pb_parent_div">
+         <apex:pageBlock >
+           <apex:pageBlockSection title="Support Board">
+           
+             <div>
+                 <div>
+                   <analytics:reportChart size="small" reportId="00O90000006FePT"></analytics:reportChart>
+                 </div>
+                
+             </div></apex:pageBlockSection>
+         </apex:pageBlock>
+       </div>
+       <div class="pb_parent_div">
+         <apex:pageBlock >
+           <apex:pageBlockSection title="Social World" columns="1">
+              <apex:pageBlockSection title="Facebook Info"></apex:pageBlockSection>
+              <apex:pageBlockSection title="LinkedIn Info"></apex:pageBlockSection>
+              <apex:pageBlockSection title="Twitter Info"></apex:pageBlockSection>
+              
+           </apex:pageBlockSection>
+         </apex:pageBlock>
+       </div>
+    
+    </div>
+    <div class="main_div">
+        <apex:pageBlock >
+           <apex:pageBlockSection title="Scheduled Job By You">
+           </apex:pageBlockSection>
+         </apex:pageBlock>
+    </div>
+  </apex:form>
+  <!--
+  <script>
+  function openCaseLookup(val){                 
+                 var searchText = jQuery("input[id$='case_lookup']").val();
+                 var activityLogId = '{!managerActivityLog}';  
+                 baseURL = "/apex/CaseLookup?Casenumber="+searchText+"&activityLogId="+activityLogId;
+                 window.open(baseURL, 'lookup', 'width=700,height=500,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no');
+                 return false;
+             }
+              function GetSelectedValueFromLookup(caseId,casenumber){ 
+                 jQuery("input[id$='case_lookup']").val(casenumber);     
+                 jQuery("input[id$='lookup_icon_Hidden']").val(caseId);
+                 var searchText1 = jQuery("input[id$='case_lookup']").val();
+                 console.log('_____caseId________'+caseId);
+                 console.log('_____casenumber________'+casenumber);
+                 showOnDemandCase(caseId); 
+                 //simple();
+                 return false;       
+              }
+  </script>
+  <apex:outputPanel id="edit_panel">
+                    <b>Select Case:</b> <apex:inputText styleClass="input_text" id="case_lookup" value="{!onDemandCaseNumber}" /> 
+                    <apex:image id="lookup_icon" url="/s.gif" onclick="openCaseLookup(this); return false;" styleClass="lookupIcon" />                              
+                    <apex:inputhidden id="lookup_icon_Hidden"/>
+ </apex:outputPanel>
+ caselookup page
+ 
+ <apex:page controller="CaseLookupController" sidebar="false" tabstyle="Case">
+  <apex:includeScript value="{!URLFOR($Resource.SalesInternalResources, '/JQuery10.js')}"/> 
+  <apex:includeScript value="/soap/ajax/30.0/connection.js"/>
+  <apex:includeScript value="/soap/ajax/30.0/apex.js"/> 
+  <style>
+       .srch_line{padding: 4px 3px;
+        font-family: 'Arial','Helvetica',sans-serif;
+        font-weight: bold;
+        font-size: 118%
+        }
+        .input_text{width: 170px !important;
+            margin-left: 6px;
+            margin-right: 6px;
+         }
+         .edit_panel{
+         }
+  </style> 
+  <apex:form id="theForm">
+    <apex:sectionHeader title="Select Case"/>
+    <apex:outputPanel styleClass="edit_panel" id="edit_panel">
+            <b>Select Case:</b> <apex:inputText styleClass="input_text" id="case_lookup" value="{!onDemandCaseNumber}" />                           
+            <apex:commandButton action="{!searchGo}" value="Go!" /> 
+            **Enter Case Number to search
+        </apex:outputPanel>
+        <br/><br/><br/>
+        <apex:outputPanel rendered="{!isGlobalSearch }">
+        <div class="srch_line">Recently Viewed Cases</div>
+        </apex:outputPanel>
+        <apex:pageBlock id="searchResults">
+               <div style="overflow-y:scroll;height:400px;">
+              <apex:pageBlockTable value="{!casesList}" var="caseInLookup" id="tblResults" >
+                <apex:column width="10%">
+                  <apex:facet name="header">
+                    <apex:outputPanel >Case Number</apex:outputPanel>
+                  </apex:facet>
+                   <a caseId="{!caseInLookup.Id}" caseNumber="{!caseInLookup.CaseNumber}" class="case_link" href="javascript:void(null);"  >{!caseInLookup.CaseNumber}</a>     
+                </apex:column>
+                <apex:column width="30%">
+                  <apex:facet name="header">
+                    <apex:outputPanel >Subject</apex:outputPanel>
+                  </apex:facet>
+                   {!caseInLookup.Subject}    
+                </apex:column>
+                <apex:column width="30%">
+                  <apex:facet name="header">
+                    <apex:outputPanel >TSE Name</apex:outputPanel>
+                  </apex:facet>
+                   {!caseInLookup.Owner.Name}    
+                </apex:column>
+                <apex:column width="30%">
+                  <apex:facet name="header">
+                    <apex:outputPanel >Manager Name</apex:outputPanel>
+                  </apex:facet>
+                   {!userIdToMangerName[caseInLookup.OwnerId]}    
+                </apex:column>
+              </apex:pageBlockTable>
+              <apex:outputlabel rendered="{!IF(casesList.size == 0,true,false)}">
+                  <div><b>No Records Found</b></div>
+              </apex:outputlabel>
+              </div>
+            </apex:pageBlock>
+    </apex:form>
+    <script type="text/javascript">
+             //case_link
+            jQuery(document).ready(function(){
+                jQuery(".case_link").bind("click",function(){
+                    var caseId     = jQuery(this).attr('caseId');
+                    var caseNumber = jQuery(this).attr('caseNumber');
+                    sforce.connection.sessionId = "{!$Api.Session_ID}";
+                    var storeOnDemandCase = new sforce.SObject("Store_Cases_For_Month__c");
+                    storeOnDemandCase.Filter_Criteria__c = 'On Demand';
+                    storeOnDemandCase.Case__c   = caseId;
+                    storeOnDemandCase.Manger_Activity_Log__c = '{!activityLogId}';
+                    var result  = sforce.connection.create([storeOnDemandCase]);
+                    window.opener.GetSelectedValueFromLookup(caseId, caseNumber);  
+                    window.close();         
+                });
+            });           
+        </script>
+</apex:page>
+  -->
+  </apex:define>
+ </apex:composition>
+</apex:page>

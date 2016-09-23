@@ -1,0 +1,3 @@
+<apex:page >
+  <c:SocialTabNavigation />
+</apex:page>

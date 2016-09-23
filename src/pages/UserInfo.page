@@ -1,0 +1,6 @@
+<apex:page >
+    <apex:form >
+        <!--<apex:outputText escape="false" value="{!response}"></apex:outputText>-->
+        <apex:iframe src="http://ayub-ansari-dev-ed.my.salesforce.com/setup/user/userstorageusage.jsp?id=005900000022hUb&setupid=PersonalInformation&isdtp=mn"/>
+    </apex:form>
+</apex:page>

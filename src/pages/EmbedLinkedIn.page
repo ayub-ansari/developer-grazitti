@@ -1,0 +1,21 @@
+<apex:page controller="LinkedInPageController" sidebar="false" showHeader="false">
+<apex:form >
+      <div>
+        <div style="float:left;padding-left:400px;"><apex:image url="{!URLFOR($Resource.Images, 'images.jpg')}" width="50" height="50" /></div>
+        <div style="float:right;padding-right:400px;padding-top:10px;">
+           <apex:commandButton reRender="thetextpanel" value="View your LinkedIn Profile" action="{!viewLinkedIn}" />
+        </div>
+      </div>
+      <apex:outputPanel id="thetextpanel" >
+          <apex:outputPanel rendered="{!isLinkedIn}">
+             <div style="padding-top:233px;">
+                <apex:outputLabel value=" Your Public LinkedIn URL : "/>
+                <apex:inputText value="{!LinkedInUrl}"/>
+             </div>
+             <div>
+                 <apex:commandButton action="{!feedCredential}" value="View"/>
+             </div>
+         </apex:outputPanel>
+     </apex:outputPanel>    
+</apex:form>
+</apex:page>

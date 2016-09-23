@@ -1,0 +1,221 @@
+<apex:page standardController="Case" extensions="SupportGlobalSearchController" id="thePage" showHeader="false" sidebar="false" title="Support Global Search">
+    <apex:includeScript value="/support/console/33.0/integration.js"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+   
+    <style>
+        .zclip{border:1px solid #000;padding:1px;}
+        .zclip{left: 0.7px !important;top: -16px !important;position:relative !important;}
+        .list tr.even th, .list tr.odd th, .list tr.even td, .list tr.odd td{vertical-align:top !important;}
+        .copyLinkTd{width:10%;}
+        .apexp .bPageBlock.apexDefaultPageBlock .pbBody{margin:0; display:block !important;} 
+        .bPageBlock .detailList .labelCol{width:1%;}  
+        .nopad{padding:0px;} 
+        
+        
+         }         
+    </style>
+
+    <apex:form id="theForm" style="width:95%;Padding:10px;" rendered="{! NOT(ISNULL(caseRecord.Id))}">        
+        <apex:actionFunction action="{!searchKnowledgeRecords}" name="reSearchArticles" rerender="tab1,tab2,tab3" status="actionSt1" immediate="true">            
+            <apex:param name="searchText" assignTo="{!searchText}" value=""/>
+            <apex:param name="channelType" assignTo="{!channelType}" value=""/>
+            <apex:param name="page" value="0" assignTo="{!currentPage}"/>
+        </apex:actionFunction>                                  
+        <apex:outputPanel id="tab1">
+        
+            <apex:pageBlock >
+            <div class="col-xs-12 col-sm-12 nopad">
+                <div style="padding-left:20px;font-size:15px;"><p> <b><u>Support console search help.</u></b></p>   
+                <apex:pagemessages />                            
+                 <div class="col-xs-12 col-sm-12 nopad">
+                    <div class="col-xs-9 col-sm-9 nopad">                                
+                        <!--<apex:image value="{!URLFOR($Resource.SearchImageIcon, 'img/icon-2.png') }" style="margin-bottom: 1px"/> -->
+                        <apex:inputtext value="{!searchText}" html-placeholder="Search" id="searchStr" style="padding-left: 10px; height: 25px;border: 2px solid grey;margin-top: 5px;border-top-right-radius: 15px;border-bottom-right-radius: 15px; border-top-left-radius: 15px;border-bottom-left-radius: 15px;outline: none;width:100%;" />     
+                    </div>           
+                    <div class="col-xs-3 col-sm-3">
+                        <apex:commandButton value="Search" action="{!searchKnowledgeRecords}" status="actionSt1" reRender="theForm" style=" padding: 4px 15px;   border-radius: 10px;">
+                             <apex:param name="page" value="0" assignTo="{!currentPage}"/>
+                        </apex:CommandButton> <br/>
+                    </div>
+                </div>                
+                 <div class="col-xs-12 col-sm-12" style="min-height: 160px;height: auto;overflow: hidden;border: 2px solid black;margin-top:10px;border-radius: 7px;">     
+                    <div  class="col-xs-4 col-sm-4 nopad" style="margin-top:10px;font-size:14px;font-weight:normal;">
+                        <apex:selectRadio layout="pageDirection" onchange="reSearchArticles(document.getElementById('{!$Component.searchStr}').value,this.value,0, document.getElementById('{!$Component.Docu}').value, document.getElementById('{!$Component.Discus}').value, document.getElementById('{!$Component.Blgs}').value);" value="{!channelType}" id="selecRd1">                         
+                            <apex:selectOption itemValue="All" itemlabel="All" id="rd2"/>
+                            <apex:selectOption itemValue="DayAgo" itemlabel="A day ago" id="rd3" /> 
+                            <apex:selectOption itemValue="WeekAgo" itemlabel="A week ago" id="rd4"/>
+                            <apex:selectOption itemValue="MonthAgo" itemlabel="A month ago" id="rd5"/>
+                            <apex:selectOption itemValue="YearAgo" itemlabel="An year ago" id="rd6"/>
+                        </apex:selectRadio>
+                    </div>
+                    <div class="col-xs-5 col-sm-5 nopad" style="margin-top:10px;">
+                        <apex:inputCheckbox value="{!document}" label="Documents" id="Docu"/>&nbsp;&nbsp;Jive Documents <br/>               
+                        <apex:inputCheckbox value="{!Discussion}" label="Discussions" id="Discus"/>&nbsp;&nbsp;Jive Discussions<br/>
+                        <apex:inputCheckbox value="{!Blog}" label="Blogs" id="blgs"/>&nbsp;&nbsp;Jive Blogs<br/>
+                        <apex:inputCheckbox value="{!Idea}" label="Ideas" id="Idea"/>&nbsp;&nbsp;Jive Ideas<br/> 
+                        <apex:inputCheckbox value="{!question}" label="Question" id="ques"/>&nbsp;&nbsp;Jive Question<br/>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 nopad" style="margin-top:10px;">
+                        <apex:inputCheckbox value="{!showCaseResult}" label="Cases" id="cas"/>&nbsp;Cases
+                    </div>
+                </div>
+                
+            </div>
+            </div>                                                        
+            </apex:pageBlock> 
+                           
+            <apex:actionStatus id="actionSt1">
+                <apex:facet name="start">                                                 
+                    <apex:outputPanel style="background-color:#000001;opacity:0.50;z-index:9999;width:100%;min-height:160px;position:absolute;display:block;border-radius:5px;margin-left:7px;">
+                     <img style="margin-right: 1px; position: absolute; top: 60px; left: 370px;" src="/img/loading.gif" />
+                    </apex:outputpanel>
+                </apex:facet>
+                <apex:facet name="stop"/>                
+            </apex:actionStatus>                            
+        </apex:outputPanel>   
+        
+        <!--JIVE--SECTION---STARTS---->         
+        <apex:outputPanel style="float:left;background:#F8F8F8;width:100%;" id="tab2">
+        
+            <span style="font-size:13px;color:#333;display:block;font-size:15px;padding:10px;"><strong>Results From Jive (Total result {!totalRecsJIve})</strong></span>
+            <apex:outputPanel rendered="{!If(resultsToShow == null || resultsToShow.size == 0,'true','false')}">
+                <div style="padding-left:20px;float:left;">
+                    <strong>No Results Found</strong>
+                </div>   
+            </apex:outputPanel> 
+            
+            <apex:outputPanel rendered="{!If(resultsToShow !=null && resultsToShow.size > 0,'true','false')}" style="overflow: hidden;">                                                      
+                <apex:repeat value="{!resultsToShow}" var="jiveResult" >                              
+                    <div class="searchResult" style="margin:15px;background:#fff;">
+                        <div id="searchResultTitle" style="margin:10px; text-decoration: underline;}">
+                            <a href="{!jiveResult.URL}" target="_blank">
+                            <strong >{!jiveResult.title}</strong>
+                            </a> 
+                        </div>
+                        <div id="searchResultBody" style="margin:10px;">                                                                                                
+                            <apex:outputText value="{!LEFT(SUBSTITUTE(jiveResult.summary,'<br/>',''),100) + if(Len(jiveResult.summary)>80,'...','')}" escape="false"/>
+                        </div>
+                        <div id="searchResultTitle2" style="margin:10px;font-size: 12px;">
+                            <strong>Last Modified:</strong> {!jiveResult.lastmodified} &nbsp; <strong>Type:</strong> 
+                            {!UPPER(LEFT(jiveResult.typeofchannel, 1))}{!MID(jiveResult.typeofchannel, 2, LEN(jiveResult.typeofchannel))}
+                            &nbsp; <strong> <a style="width:55px; text-decoration: underline;" onclick="openCaseCommentPopup('{!caseRecord.Id}','{!jiveResult.sfdc_id}','{!jiveResult.typeofchannel}','{!jiveResult.URL}');">Attach To Case</a> </strong> 
+                            &nbsp;<strong><a id="thePage:theForm:theCommandLink" href="#" onclick="copytext('{!jiveResult.URL}')" style="text-decoration: underline;">Copy To Clipboard</a></strong>
+
+                        </div>
+
+                    </div>
+                </apex:repeat>                       
+                
+                    <apex:outputPanel >
+                    <div style="margin:10px" class="col-xs-12 col-sm-12">
+                        <div style="{!If(resultsToShow!=null && resultsToShow.size> 0,'margin-left:100px;','display:none;')}" class="col-xs-6 col-xs-offset-6 col-sm-6 col-sm-offset-6">
+                            <apex:outputPanel >                   
+                                <apex:commandLink value="Prev" rerender="tab2" action="{!JIvePrevious}" rendered="{!showPrevJIve}"/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <apex:commandLink value="Next" rerender="tab2" action="{!JIveNext}" rendered="{!showNextJive}"/>                                                                
+                            </apex:outputPanel>                
+                        </div>
+                    </div>
+                </apex:outputPanel>                
+             </apex:outputPanel>
+        </apex:outputPanel> 
+        <!--JIVE--SECTION---ENDS----> 
+        
+        <!--CASES--SECTION---STARTS---->     
+        <apex:outputPanel style="float:left;background:#F8F8F8;width:100%;"  id="tab3" rendered="{!showCaseResult}" Style="overflow: hidden;">
+            <span style="font-size:13px;color:#333;display:block;font-size:15px;padding:10px;"><strong>Results From Salesforce(Total result {!totalRecs})</strong></span>
+            <div style="{!If(caseSearchResults!=null && caseSearchResults.size== 0,'padding-left:20px;float:left;','display:none;')}">
+                <strong>No Results Found</strong>
+            </div>                                                       
+            <apex:repeat value="{!caseSearchResults }" var="singleCaseResult">                
+                <div class="searchResult" style="margin:15px;background:#fff;">
+                    <div id="searchResultTitle" style="margin:10px; text-decoration: underline;}">
+                       <a href="/{!singleCaseResult.id}" target="_blank"> <strong >{!singleCaseResult.subject}</strong>  </a>
+                    </div>
+                    <div id="searchResultBody" style="margin:10px;">                                                                  
+                        <apex:outputText value="{!LEFT(SUBSTITUTE(singleCaseResult.Description,'<br/>',''),100) + if(Len(singleCaseResult.Description)>80,'...','')}" escape="false"/>
+                    </div>
+                    <div id="searchResultTitle2" style="margin:10px;font-size: 12px;">
+                        <strong>Last Modified:</strong>
+                        <!-- {!singleCaseResult.lastmodifieddate}-->
+                        <apex:outputText value="{0,date,yyyy-MM-dd}"> <apex:param value="{!singleCaseResult.lastmodifieddate}" /> </apex:outputText>
+                        <strong>&nbsp;Type:</strong> Cases &nbsp; <a href="javascript:void();" onclick="javacript:openPrimaryTab('{!singleCaseResult.Id}','{!singleCaseResult.CaseNumber}')"> <strong >View Case</strong>  </a>                      
+                    </div>                    
+                </div>
+            </apex:repeat>
+            <div style="margin:10px" class="col-xs-12 col-sm-12">           
+                <div style="{!If(caseSearchResults !=null && caseSearchResults.size> 0,'margin:10px;margin-left:100px;','display:none;')}" class="col-xs-6 col-xs-offset-6 col-sm-6 col-sm-offset-6">
+                <apex:outputPanel >                                  
+                    <apex:commandLink value="Prev" rerender="tab3" action="{!previous}" rendered="{!showPrev}"/ >
+                    &nbsp;<apex:commandLink value="Next" rerender="tab3" action="{!next}" rendered="{!showNext}"/>                                                                        
+                </apex:outputPanel>                
+                </div>
+            </div>
+        </apex:outputPanel>
+        <!--CASES--SECTION---ENDS----> 
+    </apex:form>
+
+    <script type="text/javascript">
+        //function called to open popup
+        function openCaseCommentPopup(id,artId,docType,URL){
+            var url = "/apex/addCaseCommentPopup?id="+id+'&docType='+docType+'&artId='+artId+'&URL='+URL;
+            newWin = window.open(url, 'Popup','height=300,width=500,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no,location=no');
+            if(window.focus) newWin.focus();                                                                
+            return false;
+        }
+        
+        //function to refresh page after case comment insertion--start
+        function RefreshPrimaryTab(){
+            sforce.console.getFocusedPrimaryTabId(showTabId);
+        }
+        var showTabId = function showTabId(result) 
+        {
+            var tabId = result.id;
+            console.log('Primary Tab IDs: primaryTabId ' + tabId );
+            sforce.console.refreshPrimaryTabById(tabId , false, refreshSuccess);
+        };
+        
+        var refreshSuccess = function refreshSuccess(result) {
+            if (result.success == true){
+                console.log('Primary tab refreshed successfully');
+                key = encodeURI('searctext'); value = encodeURI('{!searchText}');
+
+                var kvp = document.location.search.substr(1).split('&');
+            
+                var i=kvp.length; var x; while(i--) 
+                {
+                    x = kvp[i].split('=');
+            
+                    if (x[0]==key)
+                    {
+                        x[1] = value;
+                        kvp[i] = x.join('=');
+                        break;
+                    }
+                }
+            
+                if(i<0) {kvp[kvp.length] = [key,value].join('=');}
+            
+                //this will reload the page, it's likely better to store this until finished
+                document.location.search = kvp.join('&'); 
+            }else{console.log('Primary did not refresh');}
+        };        
+        //function to refresh page after case comment insertion--end
+        
+        //function to open case in console
+        function openPrimaryTab(caseid, casenumber) {
+            sforce.console.openPrimaryTab(undefined,'/'+caseid, true, casenumber);
+        }
+        
+        //function to copy the link in clipboard 
+        function copytext(text) {
+            var textField = document.createElement('textarea');
+            textField.innerText = text;
+            document.body.appendChild(textField);
+            textField.select();
+            document.execCommand('copy');
+            textField.remove();
+        }        
+    </script>
+</apex:page>

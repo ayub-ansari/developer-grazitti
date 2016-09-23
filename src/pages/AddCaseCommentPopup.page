@@ -1,0 +1,31 @@
+<apex:page standardController="Case" extensions="CaseSearchResultLinkController" showHeader="false" sidebar="false">
+    <apex:includeScript value="/support/console/33.0/integration.js"/>
+    <apex:form id="theForm" style="padding:15px;">
+        <script>
+            function RefreshParentWindow(){
+                window.opener.RefreshPrimaryTab();
+                setTimeout(function(){window.close();}, 300);                
+                console.log("Call Ends");
+            }
+        </script>        
+        <apex:pageBlock mode="edit" id="panel1">  
+            <apex:pageBlockSection title="Action Status" columns="1">
+                <apex:pageMessages />  
+             </apex:pageBlockSection>      
+            <apex:pageBlockButtons rendered="{!!commentInserted}" location="bottom">        
+                <apex:commandButton action="{!saveCaseComment}" value="Add Case Comment" reRender="panel1" status="actionSts" oncomplete="RefreshParentWindow();" />
+            </apex:pageBlockButtons>      
+            <apex:pageBlockSection rendered="{!!commentInserted}" title="Add Case Comment with Article Link" columns="1">
+                 <apex:inputField style="width:300px;height:100px;" value="{!cComment.commentBody}"/> 
+                <apex:inputField value="{!cComment.isPublished}"/>        
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    <apex:actionStatus id="actionSts">
+        <apex:facet name="start">                                                 
+            <apex:outputPanel style="background-color:#000001;opacity:0.50;z-index:9999;width:220px;height:40px;position:absolute;display:block;border-radius:5px;margin-left:90px;margin-top:-50px;">
+             <img style="margin-right: 1px; position: absolute; top: 15px; left: 90px;" src="/img/loading.gif" />
+            </apex:outputpanel>
+        </apex:facet>
+    </apex:actionStatus>  
+</apex:page>

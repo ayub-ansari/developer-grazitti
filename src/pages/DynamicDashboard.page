@@ -1,0 +1,3 @@
+<apex:page >
+  <analytics:reportChart reportId="00O90000006FHoj" filter="{column:'ACCOUNT_ID', operator:'equals', value:'0019000000Ve0RI'}"/> 
+</apex:page>

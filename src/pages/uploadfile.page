@@ -1,0 +1,6 @@
+<apex:page controller="AttachmentUploadController">
+  <apex:form >  
+       <apex:inputFile value="{!attach.body}" filename="{!attach.name}"/>
+       <apex:commandButton value="Upload Image" action="{!UploadFile}" /> <br/>  
+  </apex:form>
+</apex:page>

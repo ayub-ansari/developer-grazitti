@@ -1,0 +1,5 @@
+<apex:page >
+  <head>
+      <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.AyubBlogResource,'css/style.css')}" />
+  </head>
+</apex:page>

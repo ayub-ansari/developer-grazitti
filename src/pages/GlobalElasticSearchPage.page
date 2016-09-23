@@ -1,0 +1,111 @@
+<apex:page controller="GlobalElasticSearchPageController">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"/>
+    <style>
+         .st-default-search-input {
+              display: inline-block;
+              width: 190px;
+              height: 16px;
+              padding: 7px 11px 7px 28px;
+              border: 1px solid #bbb;
+              border: 1px solid rgba(0,0,0,0.25);
+              font-weight: 400;
+              color: #444;
+              font-size: 14px;
+              line-height: 16px;
+              box-sizing: content-box;
+              background: #fff 8px 8px no-repeat url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6%2BR8AAAACXB…Hx4Taq1nrnKaW8K6XUUsrHWuvNevdRRLzFGwzvDbXAB9cDAHvhedDruuxSAAAAAElFTkSuQmCC);
+              background-clip: padding-box;
+              -webkit-border-radius: 5px;
+              -moz-border-radius: 5px;
+              -ms-border-radius: 5px;
+              -o-border-radius: 5px;
+              border-radius: 5px;
+              -webkit-box-shadow: none;
+              -moz-box-shadow: none;
+              box-shadow: none;
+              font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+            }
+            .form-control {
+                  display: block;
+                  width: 445px;
+                  height: 20px;
+                  margin-top: 15px;
+                  font-size: 14px;
+                  line-height: 1.42857143;
+                  color: #333333;
+                  background-color: #ffffff;
+                  background-image: none;
+                  border: 1px solid #cccccc;
+                  border-radius: 4px;
+                  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+                  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+                  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                }
+                .input_box{
+                    float:left;
+                    width:50%;
+                }
+                
+                .search_div{                
+                      border: 1px solid #137cbd;
+                      border-radius: .3125rem;
+                      background: #137cbd;                     
+                      box-shadow: none;                     
+                      text-decoration:none;                      
+                      float: left;
+                      margin-top: 21px;
+                }
+                .search_button {
+                      color: #ffffff;
+                      font-size: 1.2125rem;
+                      text-decoration: none;
+                      padding: 20px;
+                
+                }
+                .search_div a:hover{
+                      color: #ffffff;
+                      font-size: 1.2125rem;
+                      text-decoration: none;
+                      padding: 20px;
+                }
+                .form-group{
+                    width:100%;
+                }
+    </style>
+    
+    <apex:form styleClass="navbar-form navbar-left">
+        <div class="form-group">
+          <div class="input_box"><apex:inputText styleclass="form-control st-default-search-input"/></div>
+          <div class="search_div"><a class="search_button" href="#" onclick="showData()">Search</a> </div>       
+        </div>
+        
+         <div class= "search_result_div" id="recentItems">      
+             <!--PLACE HOLDER-->  
+       </div>
+    </apex:form>
+    <script>
+         $( document).ready(function(){
+             
+           
+         });
+         
+         function showData(){
+             searchtext = '';
+             GlobalElasticSearchPageController.showElasticity(searchtext,function(result,event){
+                 
+                 var search_result_html = "<div>"+jQuery.parseJSON(result)+"</div>";
+                 console.log(jQuery.parseJSON(result));
+                 $(".search_result_div").append($(search_result_html)); 
+                 
+                 $.each(jQuery.parseJSON(result.hits).records[0].hits, function(key, profileMetaData) {
+                 
+                 });
+                 
+             },{escape:false});
+         }
+        
+        //var profilecomp_html
+    </script>
+</apex:page>

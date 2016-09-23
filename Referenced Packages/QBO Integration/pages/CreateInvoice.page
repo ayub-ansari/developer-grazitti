@@ -1,0 +1,42 @@
+<apex:page docType="html-5.0" standardController="Opportunity" tabStyle="Opportunity" extensions="OneSaas.CreateInvoice">
+    <apex:form >
+    <apex:pageMessages />
+        <apex:pageBlock mode="inlineEdit" title="New Invoice">
+            <apex:pageBlockButtons >
+                    <apex:commandButton value="Save and Send to Bill.Com" action="{!Save_And_Send}"/>
+                    <apex:commandButton value="Close" action="{!NavigateToOpportunity}" immediate="true"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1">
+                <apex:inputField value="{!newInvoice.OneSaas__Date__c}"/>
+                <apex:inputField value="{!newInvoice.OneSaas__Due_Date__c}"/>
+                <apex:inputField value="{!newInvoice.OneSaas__Description__c}"/>
+            </apex:pageBlockSection>
+            
+            
+            <apex:pageBlockTable value="{! OppLineItemsWithQuantityNotInvoiced }" var="item" >            
+                <apex:column headerValue="Include">
+                    <apex:inputCheckbox id="includeProduct" value="{! item.Included__c}" />
+                </apex:column>
+                <apex:column headerValue="Product">
+                    <apex:outputField value="{! item.PriceBookEntry.Name}" />
+                </apex:column>
+                <apex:column headerValue="Quantity">
+                    <apex:inputField value="{! item.Quantity_Not_Invoiced__c }" required="true" />
+                </apex:column> 
+                <apex:column headerValue="Unit Price">
+                    <apex:outputField value="{! item.UnitPrice}" />
+                </apex:column> 
+                <apex:column headerValue="Total Price">
+                    <apex:outputField value="{! item.TotalPrice}" />
+                </apex:column>
+                <apex:inputHidden value="{!item.OneSaas__Quantity_Invoiced__c}" id="hiddenField"/>                              
+            </apex:pageBlockTable>
+            
+            
+        </apex:pageBlock>
+    </apex:form>
+   <!--<apex:detail relatedList="false" title="false" /> -->
+   <script>
+        function setFocusOnLoad() {}
+   </script>
+</apex:page>

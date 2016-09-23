@@ -1,0 +1,20 @@
+<apex:page standardcontroller="WorkOrder" extensions="Create_WorkOrderLineItem" sidebar="false" showHeader="true" showChat="false"  >
+    <apex:form > 
+        <apex:pageBlock >
+            <apex:pageBlockSection columns="1" >
+                <apex:pageBlockTable value="{!assetWrapper  }" var="r" id="result" rendered="{!Not(ISNULL(assetWrapper))}">
+    
+                    <apex:column >
+                          <apex:inputCheckbox id="checkbox"  >
+                          </apex:inputCheckbox>
+                    </apex:column>
+                    <apex:column headerValue="Asset no." value="{!r.assetWrapper.name}" />
+                    <apex:column headerValue="Product name" value="{!r.assetWrapper.Product2.name}" />
+              
+               
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    
+    </apex:form>
+</apex:page>

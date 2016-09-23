@@ -1,0 +1,63 @@
+<apex:page title="Ayub Blog Home" controller="AyubBlogHome" showHeader="false" sidebar="false">
+    
+    <style>
+    .tabsstyle {font-family: cursive;
+                font-size: 16px;}
+    .image1Style {width: 277px;
+    padding-bottom: 68px;
+    padding-top: 17px;
+    padding-left: 29px;}
+        .image2Style {padding-left: 29px;padding-top: 55px;}
+    .section1style{}
+    </style>
+    <apex:composition template="Ayub_Blog_Template">
+        <apex:define name="body">
+        <apex:form styleClass="tabsstyle">
+          <apex:pageBlock >
+            <c:NavigationComponent ></c:NavigationComponent>
+            <apex:pageBlockSection title="About Me" collapsible="false">
+           
+                <apex:pageBlockSectionItem dataStyleClass="section1style">
+                 <apex:outputPanel styleClass="panelimages">
+                      <apex:image StyleClass="image1Style" url="{!URLFOR($Resource.AyubBlogResource, 'images/Ayub.PNG')}" /><br/>
+                      <br/><br/><b>Most Viewed Article :</b><br/><br/>
+                      <apex:outputLink value="{!$Page.Ayub_Blog_Salesforce}" styleClass="linkStyle"> How can we bypass security token in Apex Dataloader, Eclipse IDE or any external tool?</apex:outputLink>  
+            
+                      <apex:image StyleClass="image2Style" url="{!URLFOR($Resource.AyubBlogResource, 'images/apex.jpg')}" />
+                 
+                 </apex:outputPanel>
+                   
+                  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                Hi Salesforce Developers !!!<br/><br/><br/>
+
+                I am Ayub Ansari having more than 4 years of experience in Programming and web application development.<br/><br/>
+                
+                Writing technical blog articles, learning new Programming languages , frameworks and sharing knowledge with others is one of my hobby. The more I learn, more I understood that how little I know and that drives me to dig into technology and languages to explore.<br/>
+                
+                My Experience and Projects normally includes Salesforce, JAVA, PHP based applications.<br/>
+                
+                All the articles written are from my past experience, which I wanted to share with you.<br/>
+                
+                I am working on Salesforce platform and providing customer solutions using force.com as a Salesforce Developer and sometimes more than Salesforce Developer. I have touched maximum area of Salesforce like force.com,PHP Toolkit, Partner Webservices, Metadata and Enterprise webservices, Customer Portal, Partner Portal, Community and so on.<br/>
+                For Online Training, you can contact me at - Linked-In Profile<br/>
+                
+                <b>Certifications:</b><br/>
+                ** Personally, I don't think Certification is big things for a developer, but I have Salesforce 401 developer certificate.  <br/>
+                
+              <b>  Disclaimer : </b><br/>
+              This is a personal weblog. The opinions expressed here represent my own.
+                
+
+            </apex:pageBlockSectionItem>
+           
+            
+            </apex:pageBlockSection>
+          </apex:pageBlock>
+            
+        </apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>

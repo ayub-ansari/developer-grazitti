@@ -1,0 +1,10 @@
+<antlib>
+    <typedef name="compileAndTest" classname="com.salesforce.ant.CompileAndTest"/>
+    <typedef name="deploy" classname="com.salesforce.ant.DeployTask"/>
+    <typedef name="retrieve" classname="com.salesforce.ant.RetrieveTask"/>
+    <typedef name="bulkRetrieve" classname="com.salesforce.ant.BulkRetrieveTask"/>
+    <typedef name="listMetadata" classname="com.salesforce.ant.ListMetadataTask"/>
+    <typedef name="describeMetadata" classname="com.salesforce.ant.DescribeMetadataTask"/>
+    <typedef name="cancelDeploy" classname="com.salesforce.ant.CancelDeployTask"/>
+    <typedef name="deployRecentValidation" classname="com.salesforce.ant.DeployRecentValidationTask"/>
+</antlib>

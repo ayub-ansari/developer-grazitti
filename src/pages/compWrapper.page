@@ -1,0 +1,7 @@
+<apex:page sidebar="false" >
+    <apex:form >
+       <div>
+          <c:LinkedIn id="component" linkedInPublicUrl="http://www.linkedin.com/pub/{!$CurrentPage.parameters.url}" />
+       </div>
+   </apex:form>
+</apex:page>

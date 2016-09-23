@@ -1,0 +1,5 @@
+<apex:page readOnly="true" controller="UserConsole">
+ <apex:outputText value="{!response}" escape="false"></apex:outputText>
+  <!--<apex:iframe width="100%" src="https://ayub-ansari-dev-ed.my.salesforce.com/setup/user/userstorageusage.jsp?id=005900000022hUb&isdtp=mn&output=embed"/> 
+-->
+</apex:page>

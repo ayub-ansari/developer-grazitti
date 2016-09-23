@@ -1,0 +1,24 @@
+<apex:page standardController="Preferences__c" tabStyle="Preferences__tab" extensions="PreferenceController" sidebar="true" showHeader="true">
+  
+  <apex:form >
+    <apex:pageBlock title="What To Be Display" tabStyle="Preferences__tab">
+        <apex:pageBlockButtons >
+           <apex:commandButton action="{!Save}" value="Save"/>
+           <apex:commandButton action="{!}" value="Cancel"/>
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection title="Sales Cloud Preferences" columns="2">
+            <apex:inputCheckbox value="{!preference.IsSalesUser__c}"/> Please select if you wants Sales analytics including Lead, Account, Contact, Opportunity.
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Support Cloud Preferences">
+            <apex:inputCheckbox value="{!preference.IsSupportUser__c}"/> Please select if you wants Support analytics including Case, Milestone.
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Team Based Analtyics Preferences">
+            <apex:inputCheckbox value="{!preference.IsTeamAnalytics__c}"/> Please select if you wants analytics of User having Role below than you.
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Scheduled Component References">
+            <apex:inputCheckbox value="{!preference.Have_Scheduled_Component__c}"/> Please select if you want all components scheduled by you.
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>  
+  
+</apex:page>

@@ -1,0 +1,33 @@
+<apex:page sidebar="true" tabStyle="Admin_Expediter__tab">
+   <apex:composition template="TheExpediterMainTemplate">
+    <apex:define name="body">  
+        <style>
+            .home_div {
+                  padding: 19px;
+                  font-family: y;
+                  font-size: medium;
+                  float: left;
+            }
+        </style>
+        <div class="home_div">
+      
+            Admin Expediter is the ultimate companion for Salesforce Administartor. The main goal of this app is to make simple the process of <b>deactivating a User</b>.
+            <br/>
+            <p style="font-weight:bold;">Admin Expediter lets you know:</p>
+            <ol>
+              <li><b>Email Alerts</b> where User is recipient</li>
+              <li><b>Scheduled Jobs</b> by the User:
+                  <ol>
+                      <li>Scheduled Apex Jobs</li>
+                      <li>Scheduled Dashboards</li>
+                      <li>Scheduled Report Runs</li>
+                      <li>Scheduled Reporting Snapshots</li>
+                      <li>Scheduled Data Export</li>
+                  </ol>          
+              </li>
+              <li><b>Records Owned</b> by the User</li>
+            </ol>  
+             <p>Please share your feedback or ask any additional request here- <a style="font-weight:bold;color:#76A069;" href="mailto:ayub.salsforce@gmail.com?Subject=Admin Expediter review- Feedback/Additional Request" target="_top">ayub.salsforce@gmail.com</a></p>        
+        </div> 
+       </apex:define>
+ </apex:composition></apex:page>

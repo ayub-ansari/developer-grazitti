@@ -1,0 +1,5 @@
+<apex:page standardController="Idea_Account__c">
+<script type="text/javascript">
+window.location.href = "/a1o/e";
+</script>
+</apex:page>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>29.0</apiVersion>
+    <label>NavigationComponent</label>
+    <packageVersions>
+        <majorNumber>3</majorNumber>
+        <minorNumber>18</minorNumber>
+        <namespace>Zendesk</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>2</majorNumber>
+        <minorNumber>0</minorNumber>
+        <namespace>clzV5</namespace>
+    </packageVersions>
+</ApexComponent>

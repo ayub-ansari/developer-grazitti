@@ -1,0 +1,67 @@
+<apex:component >
+   <head>
+      <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.AyubBlogResource,'css/style.css')}" />
+   </head>
+    <style>
+    .father {/* background-image:url('{!URLFOR($Resource.AyubBlogResource,'images/salesforce.jpg')}');*/
+     background-color:rgba(0, 0, 0, 0.15);
+     width:100%; height:100%;}
+    .wrapper {width:95% !important}
+    </style>
+    
+    <!--Header Strats from here-->
+    <div class="father">
+   <c:AyubBlogHeader />
+    <!--Header Ends here-->
+    
+    <!--Navigation Strats from here-->
+    <c:AyubBlogTabs /></div>
+    
+    <!--Navigation Ends here-->
+    
+    <!--<div id="container">-->
+    <div class="father" style="opacity:0.9;">
+    
+        <div class="wrapper" >
+            
+            <!--Left Section Strats from here-->
+            <div class="left_section">
+                <div>
+                    <c:AyubBlogLeftSidebar />
+                
+                </div>
+            </div>
+            <!--Left Section Ends here-->
+            
+            <div class="middle_section">
+                <div class="inner">
+                    <div class="article_section">
+                        <div class="article_wrapper">
+                            <div class="article_body">
+                                <apex:insert name="body"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="denim_seperator"><apex:image url="{!URLFOR($Resource.AyubBlogResource, 'images/line.png')}" /></div>-->
+                    <!--Footer Section Strats from here-->
+                    <div class="footer_section">
+                        <div class="denim_seperator"><apex:image url="{!URLFOR($Resource.AyubBlogResource, 'images/line.png')}" /></div>
+                        <c:AyubBlogFooter />
+                    </div>
+                    <!--Footer Section Ends here-->
+                    
+                </div>
+            </div>
+            
+            
+           <div class="right_section">
+                <div><!--<c:LancopeRightSidebarComponent />--></div>
+            </div>
+            
+           
+           <div class="clear"></div>
+        </div>
+       
+    </div>
+ 
+</apex:component>

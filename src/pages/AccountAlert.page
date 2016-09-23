@@ -1,0 +1,39 @@
+<apex:page standardController="Account" standardStylesheets="false">
+<div class="mainn" style="height:10px!important;">
+<apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"/>
+    <!--<script>
+        var j$ = jQuery.noConflict();
+        j$(document).ready(function(){
+            //alert('komal');
+            alert(JSON.stringify(j$('.mainn').parent().parent().parent().html()));
+            /*
+            j$("iframe").each(function(){
+                alert('Ayub');
+                j$(this).load(function() {                    
+                    j$(this).height( j$(this).contents().find("body").height());
+                });
+            });*/
+        });
+    </script>
+    -->
+    <script>
+    function SendMessage(message)
+    {
+        if (window.postMessage)
+            parent.postMessage(message, "*");
+    }
+
+    window.onload = function() {
+        // offsetHeight may or may not work in your browser,
+        // but there is plenty of documentation of alternatives
+        SendMessage(document.body.offsetHeight + 10 + "px");
+    }
+</script>
+  <apex:outputPanel id="panel" rendered="{!Account.AccountNumber==null}">
+   Please enter Account Number
+   <br/>
+   Check With Ayub..He can lead you there...
+  </apex:outputPanel>
+ </div> 
+  
+</apex:page>

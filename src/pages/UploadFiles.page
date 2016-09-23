@@ -1,0 +1,15 @@
+<apex:page controller="AttachmentUploadController">
+    <script type="text/javascript"> 
+        function openFiedValue(val){
+            alert('starts..'+{!attach});
+            
+            return false;
+          }
+            
+    </script>
+    <apex:form >
+        <apex:outputText value="Parent Object ID: "/><apex:inputText value="{!parentId}"/><br/>
+        <apex:outputText value="Input File:  "/><apex:inputFile value="{!attach.body}" filename="{!attach.name}"/><br/>
+        <apex:commandButton value="Upload" action="{!uploadFile}" oncomplete="openFieldPopUp()"/>
+    </apex:form>
+</apex:page>

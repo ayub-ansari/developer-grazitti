@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ifbyphone_API_oauth</fullName>
+    <apiAccessLevel>Unrestricted</apiAccessLevel>
+    <modules>
+        <module>
+            <label>Ifbyphone_API_oauth</label>
+            <moduleType>connected</moduleType>
+            <name>Ifbyphone_API_oauth</name>
+            <types>
+                <members>Ifbyphone_API_oauth_devConfig</members>
+                <name>ConnectivityDevConfigMetadata</name>
+            </types>
+            <types>
+                <members>IBP__Ifbyphone_API_oauth</members>
+                <name>Module</name>
+            </types>
+            <version>16.0</version>
+        </module>
+    </modules>
+    <namespacePrefix>IBP</namespacePrefix>
+    <version>31.0</version>
+</Package>
