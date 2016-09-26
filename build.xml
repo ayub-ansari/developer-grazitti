@@ -23,7 +23,7 @@
       <sf:deploy username="${sf.username}"
 		 password="${sf.password}"
 		 serverurl="${sf.serverurl}" 
-		 deployRoot="src" 
+		 deployRoot="ayub" 
 		 runAllTests="true"
 		 rollbackOnError="true"/>
       </target>
