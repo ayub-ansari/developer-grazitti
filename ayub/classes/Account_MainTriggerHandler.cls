@@ -9,7 +9,7 @@ DEVELOPER ISNTRUCTIONS:
 **/
 
 public class Account_MainTriggerHandler {
-
+    //integration tetsin.....
     public static boolean isBeforeInsertHandler = False;
     public static boolean isBeforeUpdateHandler = False;
     public static boolean isBeforeDeleteHandler = False;
